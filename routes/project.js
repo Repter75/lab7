@@ -5,14 +5,29 @@ exports.projectInfo = function(req, res) { 
 
   // query for the specific project here
   // send a response using res.json(...);
+  models.Project
+    .find({"_id":projectID})
+    .exec(foundProjectInfo);
+
+  function foundProjectInfo(err, data) {
+    res.json(data[0]);
+  }
 }
+
+
 
 exports.addProject = function(req, res) {
   var form_data = req.body;
-  console.log(form_data);
 
   // make a new Project and save it to the DB
   // YOU MUST send an OK response w/ res.send();
+  var newData = new models.Project(form_data);
+  newData.save(callback);
+
+  function callback(err, data) {
+    if (err) console.log(err);
+    res.send("OK");
+  }
 }
 
 exports.deleteProject = function(req, res) {
@@ -20,4 +35,12 @@ exports.deleteProject = function(req, res) {
 
   // find the project and remove it
   // YOU MUST send an OK response w/ res.send();
+   models.Project
+    .find({"_id":projectID})
+    .remove()
+    .exec(callback);
+
+    function callback() {
+      res.send("OK");
+    }
 }
