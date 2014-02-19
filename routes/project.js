@@ -1,7 +1,7 @@
 var models = require('../models');
 
 exports.projectInfo = function(req, res) { 
-	var projectID = req.params.id;
+  var projectID = req.params.id;
 
   // query for the specific project here
   // send a response using res.json(...);
@@ -10,6 +10,7 @@ exports.projectInfo = function(req, res) { 
     .exec(foundProjectInfo);
 
   function foundProjectInfo(err, data) {
+    if(err) console.log(err);
     res.json(data[0]);
   }
 }
